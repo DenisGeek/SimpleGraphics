@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Update="CustomControls\SimpleGraphicsPrimitives\SGPBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="CustomControls\SimpleGraphicsPrimitives\SGPCircle.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="CustomControls\SimpleGraphicsPrimitives\SGPRectangle.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="CustomControls\SimpleGraphicsPrimitives\SGPTriangleEquilateral.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="CustomControls\SimpleGraphicsPrimitives\SGPTriangleIsosceles .cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+
+</Project>

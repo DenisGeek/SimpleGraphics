@@ -1,6 +1,6 @@
-﻿namespace WindowsFormsControlLibrarySimpleGraphics
+﻿namespace SimpleGraphicsControls
 {
-    partial class SGControlPanel
+    partial class UserControl1
     {
         /// <summary>
         /// Required designer variable.

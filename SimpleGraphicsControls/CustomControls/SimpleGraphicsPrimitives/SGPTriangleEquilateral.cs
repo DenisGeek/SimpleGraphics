@@ -7,6 +7,8 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
     /// </summary>
     public partial class SGPTriangleEquilateral : SGPBase
     {
+        #region Fields and Properties
+
         /// <summary>
         /// Side of <inheritdoc cref="SGPTriangleEquilateral" path="/summary/name"/>
         /// </summary>
@@ -35,6 +37,8 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
         /// </summary>
         public bool DrawSide { get => _drawSide; set { _drawSide = value; Invalidate(); } }
 
+        #endregion Fields and Properties
+
         /// <summary>
         /// Constructor, using <see cref="InitializeComponent"/> - <inheritdoc cref="InitializeComponent"/>
         /// </summary>
@@ -42,6 +46,8 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
         {
             InitializeComponent();
         }
+
+        #region Methods
 
         /// <summary>
         /// Calculate <inheritdoc cref="_vertexAngle"/> when <inheritdoc cref="Control.OnResize" path="/summary"/>
@@ -63,6 +69,14 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
             Invalidate();
         }
 
+        /// <summary>
+        /// Set custom control Region, when <inheritdoc cref="Control.OnSizeChanged" path="/summary"/>
+        /// <list type="bullet">
+        ///   <item>Прозрачная панель в WinForms <see href="https://ru.stackoverflow.com/questions/484198/%D0%9F%D1%80%D0%BE%D0%B7%D1%80%D0%B0%D1%87%D0%BD%D0%B0%D1%8F-%D0%BF%D0%B0%D0%BD%D0%B5%D0%BB%D1%8C-%D0%B2-winforms"/></item>
+        ///   <item><see cref="Control.Region "/> <see href="https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.control.region?view=windowsdesktop-8.0"/></item>
+        /// </list>
+        /// </summary>
+        /// <param name="e"><inheritdoc cref="Control.OnSizeChanged" path="/param[@name='e']"/></param>
         protected override void OnSizeChanged(EventArgs e)
         {
             // Call the OnSizeChanged method of the base class.
@@ -86,6 +100,10 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
             this.Region = new Region(curvePath);
         }
 
+        /// <summary>
+        /// <inheritdoc cref="SGPCircle"/> fill and draw, when <inheritdoc cref="Control.OnPaint" path="/summary"/>
+        /// </summary>
+        /// <param name="pe"><inheritdoc cref="Control.OnPaint" path="/param[@name='e']"/></param>
         protected override void OnPaint(PaintEventArgs pe)
         {
 
@@ -115,5 +133,7 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
                 pe.Graphics.DrawString(text, font, new SolidBrush(BorderColor), textPlace);
             }
         }
+
+        #endregion Methods
     }
 }

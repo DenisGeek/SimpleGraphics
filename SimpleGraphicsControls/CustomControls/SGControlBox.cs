@@ -199,6 +199,14 @@ namespace SGTestingApp.CustomControls
             }
         }
 
+        /// <summary>
+        /// Get all <see cref="SGPLinkLine"/> whrere contains this <inheritdoc cref="SGPBase" path="/summary/inner"/>
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns>list of all <see cref="SGPLinkLine"/> whrere contains this <inheritdoc cref="SGPBase" path="/summary/inner"/> </returns>
+        public List<SGPLinkLine> GetAllLineLimks3ThisSGP(SGPBase item)
+            => _LinkedLines.Where(x => x.FirstSGP == item || x.SecondSGP == item).ToList();
+
         #endregion Manage Link Line
 
         #endregion Methods

@@ -216,6 +216,10 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
                 Point newLocation = new(Location.X + mousePositionNew.X - _mousePosition.X, Location.Y + mousePositionNew.Y - _mousePosition.Y);
 
                 Location = newLocation;
+
+                // Change linkLine location
+                var linkLines = GetAllLineLimks3ThisSGP();
+                linkLines.ForEach(x => x.Invalidate());
             }
 
             // Resize simple graphics primitives control
@@ -228,6 +232,10 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
 
                 _mousePosition = mousePositionNew;
                 Invalidate();
+
+                // Change linkLine location
+                var linkLines = GetAllLineLimks3ThisSGP();
+                linkLines.ForEach(x => x.Invalidate());
             }
         }
 
@@ -269,6 +277,21 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
         /// <returns><typeparamref name="true"/> if active</returns>
         private bool IsParentInModePrimitivesLinkSelection(SGControlBox? parentBox)
             => parentBox != null && parentBox!.IsModePrimitivesLinkSelection;
+
+        /// <summary>
+        /// <inheritdoc cref="SGControlBox.GetAllLineLimks3ThisSGP"/>
+        /// </summary>
+        private List<SGPLinkLine> GetAllLineLimks3ThisSGP()
+        {
+            var parentBox = GetParentBox();
+
+            if(parentBox == null)
+            {
+                return new List<SGPLinkLine>();
+            }
+
+            return parentBox.GetAllLineLimks3ThisSGP(this);
+        }
 
         #endregion Primitives Link Line
     }

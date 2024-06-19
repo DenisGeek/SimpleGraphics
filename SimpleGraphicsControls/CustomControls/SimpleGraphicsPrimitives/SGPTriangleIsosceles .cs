@@ -15,6 +15,7 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
     /// <summary>
     /// <name>Triangle Isosceles</name> <inheritdoc cref="SGPBase" path="/summary/inner"/>
     /// </summary>
+    [ToolboxItem(true)]
     public partial class SGPTriangleIsosceles : SGPBase
     {
         #region Fields and Properties

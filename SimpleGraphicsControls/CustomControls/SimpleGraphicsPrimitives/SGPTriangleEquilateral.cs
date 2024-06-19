@@ -1,10 +1,12 @@
-﻿using System.Drawing;
+﻿using System.ComponentModel;
+using System.Drawing;
 
 namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
 {
     /// <summary>
     /// <name>Triangle Equilateral</name> <inheritdoc cref="SGPBase" path="/summary/inner"/>
     /// </summary>
+    [ToolboxItem(true)]
     public partial class SGPTriangleEquilateral : SGPBase
     {
         #region Fields and Properties

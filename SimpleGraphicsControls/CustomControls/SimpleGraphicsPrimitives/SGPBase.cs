@@ -1,10 +1,12 @@
-﻿using System.Windows.Forms;
+﻿using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
 {
     /// <summary>
     /// Base <inner>simple graphics primitives control</inner>
     /// </summary>
+    [ToolboxItem(false)]
     public partial class SGPBase : Control
     {
         #region Fields and Properties

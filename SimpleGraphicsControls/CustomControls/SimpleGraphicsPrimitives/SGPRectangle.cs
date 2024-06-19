@@ -1,8 +1,11 @@
-﻿namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
+﻿using System.ComponentModel;
+
+namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
 {
     /// <summary>
     /// Rectangle <inheritdoc cref="SGPBase" path="/summary/inner"/>
     /// </summary>
+    [ToolboxItem(true)]
     public partial class SGPRectangle : SGPBase
     {
         #region Fields and Properties

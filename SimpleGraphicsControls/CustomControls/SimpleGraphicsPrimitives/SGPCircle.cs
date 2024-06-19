@@ -5,6 +5,8 @@
     /// </summary>
     public partial class SGPCircle : SGPBase
     {
+        #region Fields and Properties
+
         /// <summary>
         /// Circle radius
         /// </summary>
@@ -15,6 +17,8 @@
         /// </summary>
         public int ThisRadius { get => _radius; }
 
+        #endregion Fields and Properties
+
         /// <summary>
         /// Constructor, using <see cref="InitializeComponent"/> - <inheritdoc cref="InitializeComponent"/>
         /// </summary>
@@ -22,6 +26,8 @@
         {
             InitializeComponent();
         }
+
+        #region Methods
 
         /// <summary>
         /// Calculate circle radius when <inheritdoc cref="Control.OnResize" path="/summary"/>
@@ -80,5 +86,7 @@
             // Draw an triangle in the rectangle represented by the control.
             pe.Graphics.DrawEllipse(_borderPenCurrent, area);
         }
+
+        #endregion Methods
     }
 }

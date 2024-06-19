@@ -5,6 +5,8 @@
     /// </summary>
     public partial class SGPRectangle : SGPBase
     {
+        #region Fields and Properties
+
         /// <summary>
         /// Public readonly <inheritdoc cref="Control.Height" path="/returns"/>
         /// </summary>
@@ -14,6 +16,8 @@
         /// </summary>
         public int ThisWidth { get => Width; }
 
+        #endregion Fields and Properties
+
         /// <summary>
         /// Constructor, using <see cref="InitializeComponent"/> - <inheritdoc cref="InitializeComponent"/>
         /// </summary>
@@ -21,6 +25,8 @@
         {
             InitializeComponent();
         }
+
+        #region Methods
 
         /// <summary>
         /// <inheritdoc cref="SGPRectangle"/> fill and draw, when <inheritdoc cref="Control.OnPaint" path="/summary"/>
@@ -40,5 +46,7 @@
             // Draw an rectangle in the rectangle represented by the control.
             pe.Graphics.DrawRectangle(_borderPenCurrent, area);
         }
+
+        #endregion Methods
     }
 }

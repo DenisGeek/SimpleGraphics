@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             sgControlBox1 = new CustomControls.SGControlBox();
+            sgpTriangleIsosceles2 = new CustomControls.SimpleGraphicsPrimitives.SGPTriangleIsosceles();
             sgpCircle2 = new CustomControls.SimpleGraphicsPrimitives.SGPCircle();
             sgpTriangleEquilateral1 = new CustomControls.SimpleGraphicsPrimitives.SGPTriangleEquilateral();
             sgpRectangle1 = new CustomControls.SimpleGraphicsPrimitives.SGPRectangle();
@@ -42,6 +43,7 @@
             // sgControlBox1
             // 
             sgControlBox1.BackColor = SystemColors.MenuHighlight;
+            sgControlBox1.Controls.Add(sgpTriangleIsosceles2);
             sgControlBox1.Controls.Add(sgpCircle2);
             sgControlBox1.Controls.Add(sgpTriangleEquilateral1);
             sgControlBox1.Controls.Add(sgpRectangle1);
@@ -52,9 +54,24 @@
             sgControlBox1.Size = new Size(369, 624);
             sgControlBox1.TabIndex = 0;
             // 
+            // sgpTriangleIsosceles2
+            // 
+            sgpTriangleIsosceles2.BorderColor = Color.MediumBlue;
+            sgpTriangleIsosceles2.BorderHighlightColor = Color.OrangeRed;
+            sgpTriangleIsosceles2.BorderHighlightWidth = 3;
+            sgpTriangleIsosceles2.DrawVertexAngle = false;
+            sgpTriangleIsosceles2.FillColor = Color.Chartreuse;
+            sgpTriangleIsosceles2.Location = new Point(56, 246);
+            sgpTriangleIsosceles2.Name = "sgpTriangleIsosceles2";
+            sgpTriangleIsosceles2.Size = new Size(124, 178);
+            sgpTriangleIsosceles2.TabIndex = 4;
+            sgpTriangleIsosceles2.Text = "sgpTriangleIsosceles2";
+            // 
             // sgpCircle2
             // 
             sgpCircle2.BorderColor = Color.Lavender;
+            sgpCircle2.BorderHighlightColor = Color.Violet;
+            sgpCircle2.BorderHighlightWidth = 3;
             sgpCircle2.FillColor = Color.Green;
             sgpCircle2.Location = new Point(129, 26);
             sgpCircle2.Name = "sgpCircle2";
@@ -65,6 +82,8 @@
             // sgpTriangleEquilateral1
             // 
             sgpTriangleEquilateral1.BorderColor = Color.DeepPink;
+            sgpTriangleEquilateral1.BorderHighlightColor = Color.Violet;
+            sgpTriangleEquilateral1.BorderHighlightWidth = 3;
             sgpTriangleEquilateral1.DrawSide = true;
             sgpTriangleEquilateral1.FillColor = Color.Cyan;
             sgpTriangleEquilateral1.Location = new Point(33, 117);
@@ -76,8 +95,10 @@
             // sgpRectangle1
             // 
             sgpRectangle1.BorderColor = Color.Blue;
+            sgpRectangle1.BorderHighlightColor = Color.Violet;
+            sgpRectangle1.BorderHighlightWidth = 3;
             sgpRectangle1.FillColor = Color.Green;
-            sgpRectangle1.Location = new Point(75, 174);
+            sgpRectangle1.Location = new Point(74, 174);
             sgpRectangle1.Name = "sgpRectangle1";
             sgpRectangle1.Size = new Size(231, 130);
             sgpRectangle1.TabIndex = 1;
@@ -86,6 +107,8 @@
             // sgpCircle1
             // 
             sgpCircle1.BorderColor = Color.Blue;
+            sgpCircle1.BorderHighlightColor = Color.Violet;
+            sgpCircle1.BorderHighlightWidth = 3;
             sgpCircle1.FillColor = Color.Green;
             sgpCircle1.Location = new Point(42, 26);
             sgpCircle1.Name = "sgpCircle1";
@@ -105,7 +128,8 @@
             // sgpTriangleIsosceles1
             // 
             sgpTriangleIsosceles1.BorderColor = Color.Blue;
-            sgpTriangleIsosceles1.Dock = DockStyle.Fill;
+            sgpTriangleIsosceles1.BorderHighlightColor = Color.Violet;
+            sgpTriangleIsosceles1.BorderHighlightWidth = 3;
             sgpTriangleIsosceles1.DrawVertexAngle = true;
             sgpTriangleIsosceles1.FillColor = Color.Green;
             sgpTriangleIsosceles1.Location = new Point(0, 0);
@@ -137,5 +161,6 @@
         private CustomControls.SimpleGraphicsPrimitives.SGPCircle sgpCircle2;
         private CustomControls.SGControlBox sgControlBox2;
         private CustomControls.SimpleGraphicsPrimitives.SGPTriangleIsosceles sgpTriangleIsosceles1;
+        private CustomControls.SimpleGraphicsPrimitives.SGPTriangleIsosceles sgpTriangleIsosceles2;
     }
 }

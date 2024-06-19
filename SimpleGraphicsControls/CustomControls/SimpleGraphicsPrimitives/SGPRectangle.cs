@@ -38,7 +38,7 @@
             pe.Graphics.FillRectangle(_fillBrush, area);
 
             // Draw an rectangle in the rectangle represented by the control.
-            pe.Graphics.DrawRectangle(_borderPen, area);
+            pe.Graphics.DrawRectangle(_borderPenCurrent, area);
         }
     }
 }

@@ -103,7 +103,7 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
             pe.Graphics.FillPolygon(_fillBrush, curvePoints);
 
             // Draw an triangle in the rectangle represented by the control.
-            pe.Graphics.DrawPolygon(_borderPen, curvePoints);
+            pe.Graphics.DrawPolygon(_borderPenCurrent, curvePoints);
 
             // Draw side
             if (DrawSide)

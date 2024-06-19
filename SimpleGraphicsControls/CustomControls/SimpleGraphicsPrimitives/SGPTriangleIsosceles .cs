@@ -63,6 +63,7 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
             // Calculate Vertex angle
             double tan = ((double)Width / 2) / (double)Height;
             _vertexAngle = Math.Atan(tan) * (180 / Math.PI) * 2;
+            _vertexAngle = Math.Round(_vertexAngle, 1);
 
             Invalidate();
         }
@@ -117,7 +118,7 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
             pe.Graphics.FillPolygon(_fillBrush, curvePoints);
 
             // Draw an triangle in the rectangle represented by the control.
-            pe.Graphics.DrawPolygon(_borderPen, curvePoints);
+            pe.Graphics.DrawPolygon(_borderPenCurrent, curvePoints);
 
             // Draw vertex
             if (DrawVertexAngle)

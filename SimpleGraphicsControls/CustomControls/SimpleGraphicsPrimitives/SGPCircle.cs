@@ -78,7 +78,7 @@
             pe.Graphics.FillEllipse(_fillBrush, area);
 
             // Draw an triangle in the rectangle represented by the control.
-            pe.Graphics.DrawEllipse(_borderPen, area);
+            pe.Graphics.DrawEllipse(_borderPenCurrent, area);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SGTestingApp.CustomControls.SimpleGraphicsPrimitives;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,36 +12,88 @@ using System.Windows.Forms;
 
 namespace SGTestingApp.CustomControls
 {
-    public partial class SGControlBox : Panel
+    public partial class SGControlBox : Control
     {
-        private Point _mouseMoove = new (0,0);
+        #region Fields and Properties
 
+        /// <summary>
+        /// Selected <inheritdoc cref="SGPBase" path="/summary/inner"/>s
+        /// </summary>
+        private List<SGPBase> _selectedPrimitives = new List<SGPBase>();
+        /// <summary>
+        /// Selction mode active or not
+        /// </summary>
+        private bool _isModePrimitivesLinkSelection = false;
+        /// <summary>
+        /// <inheritdoc cref="_isModePrimitivesLinkSelection"/>
+        /// </summary>
+        public bool IsModePrimitivesLinkSelection { get => _isModePrimitivesLinkSelection;}
+
+        #endregion Fields and Properties
+
+        /// <summary>
+        /// Constructor, using <see cref="InitializeComponent"/> - <inheritdoc cref="InitializeComponent"/>
+        /// </summary>
         public SGControlBox()
         {
             InitializeComponent();
         }
+        
+        #region Methods
 
-        protected override void OnPaint(PaintEventArgs pe)
+        /// <summary>
+        /// If pressed Control key then activate selection mode
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnKeyDown(KeyEventArgs e)
         {
-            base.OnPaint(pe);
+            base.OnKeyDown(e);
 
+            if (e.Control)
             {
-                var text = $"X:{_mouseMoove.X} Y:{_mouseMoove.Y}";
-                var font = new Font("Arial", 16);
-                SizeF textLen = pe.Graphics.MeasureString(text, font);
-                Point textPlace = new Point(Width / 2 - (int)textLen.Width / 2, Height - (int)textLen.Height - 3);
-                pe.Graphics.DrawString(text, font, new SolidBrush(Color.Blue), textPlace);
+                _isModePrimitivesLinkSelection = true;
+                //_selectedPrimitives.Clear();
             }
         }
 
-        protected override void OnMouseMove(MouseEventArgs e)
+        /// <summary>
+        /// if released Control key then deactivate selection mode
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnKeyUp(KeyEventArgs e)
         {
-            base.OnMouseMove(e);
+            base.OnKeyUp(e);
 
+            //if (e.Control)
+            {
+                _isModePrimitivesLinkSelection = false;
+                // DO STUFF
+                _selectedPrimitives.Clear();
+            }
 
-            _mouseMoove = this.PointToClient(new Point(e.X, e.Y));
-            Invalidate();
+            Invalidate(true);
         }
 
+        /// <summary>
+        /// add to <inheritdoc cref="_selectedPrimitives"/>
+        /// </summary>
+        /// <param name="item"></param>
+        public void SelectedPrimitivesAdd(SGPBase item)
+            => _selectedPrimitives.Add(item);
+        /// <summary>
+        /// Remove from <inheritdoc cref="_selectedPrimitives"/>
+        /// </summary>
+        /// <param name="item"></param>
+        public void SelectedPrimitivesRemove(SGPBase item)
+            => _selectedPrimitives.Remove(item);
+        /// <summary>
+        /// Check <inheritdoc cref="_selectedPrimitives"/> contains the control
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public bool SelectedPrimitivesCheck(SGPBase item)
+            => _selectedPrimitives.Contains(item);
+
+        #endregion Methods
     }
 }

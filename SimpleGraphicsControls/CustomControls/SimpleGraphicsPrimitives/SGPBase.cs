@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
@@ -48,7 +49,18 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
         /// <summary>
         /// <inheritdoc cref="_borderColorHighlight"/>
         /// </summary>
-        public Color BorderHighlightColor { get => _borderColorHighlight; set { _borderColorHighlight = value; _borderPenHighlight = new(value); Invalidate(); } }
+        public Color BorderHighlightColor
+        {
+            get => _borderColorHighlight; set
+            {
+                _borderColorHighlight = value;
+                _borderPenHighlight = new(value);
+                _borderPenHighlight.Width = _borderHighlightWidth;
+                _borderSelectedPenHighlight = GeSelectedtPenHighlight(_borderPenHighlight);
+
+                Invalidate();
+            }
+        }
         /// <summary>
         /// Border highlight color for <inheritdoc cref="SGPBase" path="/summary/inner"/>, needs for demonstrte color in editor
         /// </summary>
@@ -57,6 +69,11 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
         /// Colored pen for highlight <inheritdoc cref="SGPBase" path="/summary/inner"/>, using in OnPaint
         /// </summary>
         protected Pen _borderPenHighlight = Pens.Violet;
+
+        /// <summary>
+        /// Colored pen for highlight selected <inheritdoc cref="SGPBase" path="/summary/inner"/>, using in OnPaint
+        /// </summary>
+        protected Pen _borderSelectedPenHighlight = Pens.White;
 
         /// <summary>
         /// border pen, depends on mouse hover
@@ -99,7 +116,11 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
             // Call the method of the base class.
             base.OnPaint(pe);
 
+            // Highlight border if mouse hover
             _borderPenCurrent = _isMouseHover ? _borderPenHighlight : _borderPen;
+
+            // Highlidht border if selected
+            _borderPenCurrent = IsSelectedInParentBox(GetParentBox()) ? _borderSelectedPenHighlight : _borderPenCurrent;
         }
 
         /// <summary>
@@ -143,6 +164,26 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
         {
             base.OnMouseDown(e);
 
+            // If parent in selection mode then add or remove this from selected items
+            var parentBox = GetParentBox();
+            if(IsParentInModePrimitivesLinkSelection(parentBox))
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    if (IsSelectedInParentBox(parentBox))
+                    {
+                        parentBox!.SelectedPrimitivesRemove(this);
+                    }
+                    else
+                    {
+                        parentBox!.SelectedPrimitivesAdd(this);
+                    }
+                    Invalidate();
+                }
+
+                return;
+            }
+
             _mouseButton = e.Button;
             _mousePosition = new(e.X, e.Y);
         }
@@ -167,13 +208,13 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
         {
             // Call the method of the base class.
             base.OnMouseMove(e);
-            
+
             // Drag simple graphics primitives control
             if (_mouseButton == MouseButtons.Left)
             {
                 Point mousePositionNew = new(e.X, e.Y);
                 Point newLocation = new(Location.X + mousePositionNew.X - _mousePosition.X, Location.Y + mousePositionNew.Y - _mousePosition.Y);
-                
+
                 Location = newLocation;
             }
 
@@ -191,5 +232,44 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
         }
 
         #endregion Drag or resize
+
+        #region Primitives Link Line
+
+        /// <summary>
+        /// Get higlith when selected <inheritdoc cref="SGPBase" path="/summary/inner"/>
+        /// </summary>
+        /// <param name="basePen">Base pen</param>
+        /// <returns><see cref="Pen"/> <typeparamref name="basePen"/>  with different dash style </returns>
+        private Pen GeSelectedtPenHighlight(Pen basePen)
+        {
+            var res = (Pen)basePen.Clone();
+            res.DashStyle = DashStyle.DashDot;
+            return res;
+        }
+
+        /// <summary>
+        /// Get parent box if it <see cref="SGControlBox"/>
+        /// </summary>
+        /// <returns>Parent box or null in case it not <see cref="SGControlBox"/></returns>
+        private SGControlBox? GetParentBox()
+            => Parent.GetType().IsAssignableFrom(typeof(SGControlBox)) ? (SGControlBox)Parent : null;
+
+        /// <summary>
+        /// Checking selected this <inheritdoc cref="SGPBase" path="/summary/inner"/>
+        /// </summary>
+        /// <param name="parentBox">parent box <see cref="SGControlBox"/></param>
+        /// <returns><typeparamref name="true"/> if selected</returns>
+        private bool IsSelectedInParentBox(SGControlBox? parentBox)
+            => parentBox != null && parentBox!.SelectedPrimitivesCheck(this);
+
+        /// <summary>
+        /// Checking parent in <inheritdoc cref="SGControlBox.IsModePrimitivesLinkSelection"/>
+        /// </summary>
+        /// <param name="parentBox">parent box <see cref="SGControlBox"/></param>
+        /// <returns><typeparamref name="true"/> if active</returns>
+        private bool IsParentInModePrimitivesLinkSelection(SGControlBox? parentBox)
+            => parentBox != null && parentBox!.IsModePrimitivesLinkSelection;
+
+        #endregion Primitives Link Line
     }
 }

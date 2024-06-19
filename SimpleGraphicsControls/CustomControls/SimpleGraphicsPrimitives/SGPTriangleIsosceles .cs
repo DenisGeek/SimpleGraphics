@@ -17,7 +17,7 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
     /// </summary>
     public partial class SGPTriangleIsosceles : SGPBase
     {
-        #region Fields
+        #region Fields and Properties
 
         /// <summary>
         /// Vertex angle of <inheritdoc cref="SGPTriangleIsosceles" path="/summary/name"/>
@@ -39,7 +39,7 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
         /// </summary>
         public bool DrawVertexAngle { get=> _drawVertexAngle; set { _drawVertexAngle = value; Invalidate(); } }
 
-        #endregion Fields
+        #endregion Fields and Properties
 
         /// <summary>
         /// Constructor, using <see cref="InitializeComponent"/> - <inheritdoc cref="InitializeComponent"/>

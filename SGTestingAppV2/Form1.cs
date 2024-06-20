@@ -6,7 +6,10 @@ namespace SGTestingAppV2
     {
         #region Fields and Properties
 
-        private GPRectangle pRectangle;
+        private GPRectangle? pRectangle;
+        private GPCircle? pCircle;
+        private GPTriangleEquilateral? pTriangleEquilateral;
+        private GPTriangleIsosceles? pTriangleIsosceles;
 
         #endregion Fields and Properties
 
@@ -18,8 +21,9 @@ namespace SGTestingAppV2
         private void Form1_Load(object sender, EventArgs e)
         {
             pRectangle = new(this, new(10, 10), new(200, 100));
-            var locate = pRectangle.IsPointInside(new(100, 50));
-            var notLocate = pRectangle.IsPointInside(new(5, 5));
+            pCircle = new(this, new(210, 10), new(200, 100));
+            pTriangleEquilateral = new(this, new(210, 10), new(200, 100));
+            pTriangleIsosceles = new(this, new(210, 10), new(200, 100));
         }
     }
 }

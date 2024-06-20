@@ -22,8 +22,6 @@ namespace SimpleGraphics.GraphicPrimitives
     ///     <item>Paint performs in <see cref="ContainerPaintGraphic"/></item>
     ///     <item>When parent size change recreates <see cref="_graphicContainer"/> in <see cref="OnParentResize"/></item>
     ///     <item>Graphic from <see cref="_graphicContainer"/> transfers to <see cref="Parent"/> in <see cref="OnParentPaint"/></item>
-    ///     <item>Trasparent color at <see cref="_graphicContainer"/> same as <see cref="Control.BackColor"/> at <see cref="Parent"/></item>
-    ///     <item>When change <see cref="Control.BackColor"/> at <see cref="Parent"/> transparent color of <see cref="_graphicContainer"/> changes in <see cref="OnParentBackColorChanged(object?, EventArgs)"/> </item>
     /// </list>
     /// </summary>
     public abstract class GPBase : IDisposable
@@ -64,7 +62,7 @@ namespace SimpleGraphics.GraphicPrimitives
         /// <summary>
         /// The size of this <inheritdoc cref="GPBase" path="/summary/name"/>.
         /// </summary>
-        public Size Size { get => _size; set { _size = value; Parent?.Invalidate(); } }
+        public Size Size { get => _size; set { _size = value; OnSizeChanged(); Parent?.Invalidate(); } }
 
         #endregion Position
 
@@ -111,6 +109,12 @@ namespace SimpleGraphics.GraphicPrimitives
         #endregion Fields and Properties
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="parent">Parent <see cref="Control"/></param>
+        /// <param name="location">Location at hfrent control</param>
+        /// <param name="size">Size of <inheritdoc cref="GPBase" path="/summary/name"/></param>
         public GPBase(Control parent, Point location, Size size)
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
@@ -124,6 +128,7 @@ namespace SimpleGraphics.GraphicPrimitives
             BorderColor = Color.Blue;
             _borderPenCurrent = _borderPen;
 
+            OnSizeChanged();
             ContainerPaintGraphic();
 
             SuspendPaint = false;
@@ -155,10 +160,10 @@ namespace SimpleGraphics.GraphicPrimitives
         /// <param name="parent"></param>
         private void ReCreateGraphicContainer(Control parent)
         {
-            if (Parent == null) return;
+            if (parent == null) return;
             _graphicContainer?.Dispose();
             _graphicContainer = new Bitmap(parent.Width, parent.Height, PixelFormat.Format32bppPArgb);
-            _graphicContainer.MakeTransparent(Parent.BackColor);
+            //_graphicContainer = new Bitmap(parent.Width, parent.Height, PixelFormat.Format32bppArgb);
         }
 
         /// <summary>
@@ -169,14 +174,9 @@ namespace SimpleGraphics.GraphicPrimitives
         private void OnParentResize(object? sender, EventArgs e)
         {
             ReCreateGraphicContainer(Parent);
+            ContainerPaintGraphic();
             Parent.Invalidate();
         }
-
-        /// <summary>
-        /// Event nandler for <see cref="Parent"/>, when parent <inheritdoc cref="Control.OnBackColorChanged" path="/summary"/>
-        /// </summary>
-        private void OnParentBackColorChanged(object? sender, EventArgs e)
-            => _graphicContainer.MakeTransparent(Parent.BackColor);
 
         /// <summary>
         /// Add this <inheritdoc cref="GPBase" path="/summary/name"/> to control <see cref="Parent"/> 
@@ -188,7 +188,6 @@ namespace SimpleGraphics.GraphicPrimitives
 
             parent.Paint += OnParentPaint;
             Parent.Resize += OnParentResize;
-            parent.BackColorChanged += OnParentBackColorChanged;
             parent.Invalidate();
         }
 
@@ -200,12 +199,17 @@ namespace SimpleGraphics.GraphicPrimitives
         {
             if (parent == null) return;
 
-            parent.Paint += OnParentPaint;
-            //parent.Resize += OnParentResize;
-            parent.BackColorChanged += OnParentBackColorChanged;
+            parent.Paint -= OnParentPaint;
+            parent.Resize -= OnParentResize;
         }
 
         #endregion Methods parent changing
+
+        /// <summary>
+        /// Raises when <see cref="Size"/> change
+        /// </summary>
+        protected virtual void OnSizeChanged() { }
+
 
         /// <summary>
         /// Are point inside primitive

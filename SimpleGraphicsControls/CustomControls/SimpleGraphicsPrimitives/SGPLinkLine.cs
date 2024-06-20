@@ -68,15 +68,14 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
             SetControlPosition();
             SetControlBounds();
 
-            //BringToFront();
-
             // Create points that define line.
             Point firstSGPCenter = GetSGPCenter(FirstSGP);
             Point secondSGPCenter = GetSGPCenter(SecondSGP);
 
             // Draw an triangle in the rectangle represented by the control.
             Point bg = new Point(firstSGPCenter.X - Location.X, firstSGPCenter.Y - Location.Y);
-            Point nd = new Point(secondSGPCenter.X - Location.X, secondSGPCenter.Y - Location.Y);            
+            Point nd = new Point(secondSGPCenter.X - Location.X, secondSGPCenter.Y - Location.Y);
+            
             pe.Graphics.DrawLine(PenLinkLine, bg, nd);
         }
 
@@ -108,8 +107,6 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
 
             Width =  firstSGPCenter.X > secondSGPCenter.X ? firstSGPCenter.X : secondSGPCenter.X - newLocation.X;
             Height = firstSGPCenter.Y > secondSGPCenter.Y ? firstSGPCenter.Y : secondSGPCenter.Y - newLocation.Y;
-
-            //g.DrawRectangle(PenLinkLine, new Rectangle(new Point(0, 0), new Size(this.Size.Width - 1, this.Size.Height - 1)));
         }
 
         /// <summary>

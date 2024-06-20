@@ -35,7 +35,7 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
         private bool _drawSide = false;
 
         /// <summary>
-        /// Do draw <inheritdoc cref="_vertexAngle"/> during <see cref="OnPaint"/>
+        /// Do draw <inheritdoc cref="_side"/> during <see cref="OnPaint"/>
         /// </summary>
         public bool DrawSide { get => _drawSide; set { _drawSide = value; Invalidate(); } }
 

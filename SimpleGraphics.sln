@@ -5,7 +5,13 @@ VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SGTestingApp", "SGTestingApp\SGTestingApp.csproj", "{77CABEBA-41CC-44DF-B87B-F69001C932CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleGraphicsControls", "SimpleGraphicsControls\SimpleGraphicsControls.csproj", "{56396BCD-922D-4429-B3F2-B001A9A8BEB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleGraphicsControls", "SimpleGraphicsControls\SimpleGraphicsControls.csproj", "{56396BCD-922D-4429-B3F2-B001A9A8BEB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleGraphics", "SimpleGraphics\SimpleGraphics.csproj", "{B1E4D526-791B-4C60-9D9A-F79A6839F294}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Version2", "Version2", "{6FF20E5E-98D1-4B21-9A63-270D6FAB8265}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGTestingAppV2", "SGTestingAppV2\SGTestingAppV2.csproj", "{4EDA7DD8-4BAF-4C23-8FAC-80EC34F9EEA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +27,21 @@ Global
 		{56396BCD-922D-4429-B3F2-B001A9A8BEB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56396BCD-922D-4429-B3F2-B001A9A8BEB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56396BCD-922D-4429-B3F2-B001A9A8BEB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1E4D526-791B-4C60-9D9A-F79A6839F294}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1E4D526-791B-4C60-9D9A-F79A6839F294}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1E4D526-791B-4C60-9D9A-F79A6839F294}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1E4D526-791B-4C60-9D9A-F79A6839F294}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EDA7DD8-4BAF-4C23-8FAC-80EC34F9EEA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EDA7DD8-4BAF-4C23-8FAC-80EC34F9EEA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EDA7DD8-4BAF-4C23-8FAC-80EC34F9EEA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EDA7DD8-4BAF-4C23-8FAC-80EC34F9EEA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B1E4D526-791B-4C60-9D9A-F79A6839F294} = {6FF20E5E-98D1-4B21-9A63-270D6FAB8265}
+		{4EDA7DD8-4BAF-4C23-8FAC-80EC34F9EEA6} = {6FF20E5E-98D1-4B21-9A63-270D6FAB8265}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CF94F953-4E42-4DD6-9643-DD049D53CF00}

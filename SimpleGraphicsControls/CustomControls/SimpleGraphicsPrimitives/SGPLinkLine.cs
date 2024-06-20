@@ -65,10 +65,10 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
                 return;
             }
 
-            SetControlPosition(pe.Graphics);
+            SetControlPosition();
             SetControlBounds();
 
-            BringToFront();
+            //BringToFront();
 
             // Create points that define line.
             Point firstSGPCenter = GetSGPCenter(FirstSGP);
@@ -91,7 +91,7 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
         /// <summary>
         /// Set control position bases on centres of <see cref="FirstSGP"/> and <see cref="SecondSGP"/>
         /// </summary>
-        private void SetControlPosition(Graphics g)
+        private void SetControlPosition()
         {
             if (FirstSGP == null || SecondSGP == null)
             {
@@ -109,7 +109,7 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
             Width =  firstSGPCenter.X > secondSGPCenter.X ? firstSGPCenter.X : secondSGPCenter.X - newLocation.X;
             Height = firstSGPCenter.Y > secondSGPCenter.Y ? firstSGPCenter.Y : secondSGPCenter.Y - newLocation.Y;
 
-            g.DrawRectangle(PenLinkLine, new Rectangle(new Point(0, 0), new Size(this.Size.Width - 1, this.Size.Height - 1)));
+            //g.DrawRectangle(PenLinkLine, new Rectangle(new Point(0, 0), new Size(this.Size.Width - 1, this.Size.Height - 1)));
         }
 
         /// <summary>

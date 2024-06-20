@@ -67,7 +67,8 @@ namespace SGTestingApp.CustomControls
             if (e.Control && e.KeyCode == Keys.L)
             {
                 LinkedLinesAddAllSelectedSGP(_selectedPrimitives);
-                Invalidate(true);
+                _LinkedLines.ForEach(x => { x.BringToFront(); x.Invalidate(); });
+                //Invalidate(true);
             }
 
             //Unlink
@@ -157,9 +158,9 @@ namespace SGTestingApp.CustomControls
             if (allPairs.Count > 0)
             {
                 var items4Remove = _LinkedLines.Where(x => allPairs.Contains(x)).ToList();
-                
+
                 _LinkedLines.RemoveAll(x => items4Remove.Contains(x));
-                
+
                 items4Remove.ForEach(x => { Controls.Remove(x); x.Dispose(); });
             }
         }

@@ -17,7 +17,9 @@ namespace SGTestingAppV2
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            pRectangle = new (this, new (10, 10), new (200, 100));
+            pRectangle = new(this, new(10, 10), new(200, 100));
+            var locate = pRectangle.IsPointInside(new(100, 50));
+            var notLocate = pRectangle.IsPointInside(new(5, 5));
         }
     }
 }

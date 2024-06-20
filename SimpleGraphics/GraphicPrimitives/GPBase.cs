@@ -47,6 +47,7 @@ namespace SimpleGraphics.GraphicPrimitives
         public Control Parent { get => _parent; set { LeaveParent(_parent); _parent = value; AddToParent(_parent); } }
 
         #region Position
+
         /// <summary>
         /// <inheritdoc cref="Location"/>
         /// </summary>
@@ -205,6 +206,22 @@ namespace SimpleGraphics.GraphicPrimitives
         }
 
         #endregion Methods parent changing
+
+        /// <summary>
+        /// Are point inside primitive
+        /// </summary>
+        /// <param name="point">testing point</param>
+        /// <returns><typeparamref name="true"/> if inside of this <inheritdoc cref="GPBase" path="/summary/name"/></returns>
+        public bool IsPointInside(Point point)
+        {
+            if (point.X<0|| point.X>Size.Width|| point.Y< 0 || point.Y > Size.Height)
+            {
+                return false;
+            }
+            
+            bool res = _graphicContainer.GetPixel(point.X, point.Y).ToArgb() != Parent.BackColor.ToArgb();
+            return res;
+        }
 
         #region IDisposable
 

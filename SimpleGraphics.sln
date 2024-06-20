@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Version2", "Version2", "{6F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGTestingAppV2", "SGTestingAppV2\SGTestingAppV2.csproj", "{4EDA7DD8-4BAF-4C23-8FAC-80EC34F9EEA6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSimpleGraphics", "TestSimpleGraphics\TestSimpleGraphics.csproj", "{8D9EFEA4-BDEB-49DF-8EDB-FD2B5082458E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{4EDA7DD8-4BAF-4C23-8FAC-80EC34F9EEA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EDA7DD8-4BAF-4C23-8FAC-80EC34F9EEA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EDA7DD8-4BAF-4C23-8FAC-80EC34F9EEA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D9EFEA4-BDEB-49DF-8EDB-FD2B5082458E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D9EFEA4-BDEB-49DF-8EDB-FD2B5082458E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D9EFEA4-BDEB-49DF-8EDB-FD2B5082458E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D9EFEA4-BDEB-49DF-8EDB-FD2B5082458E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -42,6 +48,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B1E4D526-791B-4C60-9D9A-F79A6839F294} = {6FF20E5E-98D1-4B21-9A63-270D6FAB8265}
 		{4EDA7DD8-4BAF-4C23-8FAC-80EC34F9EEA6} = {6FF20E5E-98D1-4B21-9A63-270D6FAB8265}
+		{8D9EFEA4-BDEB-49DF-8EDB-FD2B5082458E} = {6FF20E5E-98D1-4B21-9A63-270D6FAB8265}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CF94F953-4E42-4DD6-9643-DD049D53CF00}

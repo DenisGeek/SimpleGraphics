@@ -28,7 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            imageList1 = new ImageList(components);
             SuspendLayout();
+            // 
+            // imageList1
+            // 
+            imageList1.ColorDepth = ColorDepth.Depth8Bit;
+            imageList1.ImageSize = new Size(16, 16);
+            imageList1.TransparentColor = Color.Transparent;
             // 
             // Form1
             // 
@@ -42,5 +50,7 @@
         }
 
         #endregion
+
+        private ImageList imageList1;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,10 +33,10 @@ namespace SimpleGraphics.GraphicPrimitives
         protected override void OnSizeChanged()
             => _radius = Size.Height < Size.Width ? Size.Height / 2 : Size.Width / 2;
 
-        public override void ContainerPaintGraphic()
+        protected override void PaintGraphicInternal(ref Bitmap container, Color colorClean)
         {
-            Graphics g = Graphics.FromImage(_graphicContainer);
-            g.Clear(Color.Transparent);
+            Graphics g = Graphics.FromImage(container);
+            g.Clear(colorClean);
 
             // Create a circle that represents the size of the control, minus 1 pixel.
             var area = new Rectangle(Location, new Size(_radius * 2, _radius * 2));

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,7 @@ namespace SimpleGraphics.GraphicPrimitives
     ///     </item>
     ///     <item>Size of <see cref="_graphicContainer"/> same like <see cref="Parent"/> size</item>
     ///     <item>For paint on <see cref="_graphicContainer"/> used <see cref="Location"/> and <see cref="Size"/> </item>
-    ///     <item>Paint performs in <see cref="ContainerPaintGraphic"/></item>
+    ///     <item>Paint performs in <see cref="PaintGraphic"/></item>
     ///     <item>When parent size change recreates <see cref="_graphicContainer"/> in <see cref="OnParentResize"/></item>
     ///     <item>Graphic from <see cref="_graphicContainer"/> transfers to <see cref="Parent"/> in <see cref="OnParentPaint"/></item>
     /// </list>
@@ -32,6 +33,10 @@ namespace SimpleGraphics.GraphicPrimitives
         /// Continer for this <inheritdoc cref="GPBase" path="/summary/name"/> drawing
         /// </summary>
         protected Bitmap _graphicContainer;
+        /// <summary>
+        /// Continer for <see cref="IsPointInside"/>this <inheritdoc cref="GPBase" path="/summary/name"/> drawing
+        /// </summary>
+        protected Bitmap _graphicContainer4IsPointInside;
 
         /// <summary>
         /// Suspend paint this <inheritdoc cref="GPBase" path="/summary/name"/>
@@ -73,11 +78,11 @@ namespace SimpleGraphics.GraphicPrimitives
         /// </summary>
         public Color FillColor { get => _fillColor; set { _fillColor = value; _fillBrush = new SolidBrush(value); Parent?.Invalidate(); } }
         /// <summary>
-        /// Fill color for <inheritdoc cref="SGPBase" path="/summary/inner"/>, needs for demonstrte color in editor
+        /// Fill color for <inheritdoc cref="GPBase" path="/summary/name"/>, needs for demonstrte color in editor
         /// </summary>
         private Color _fillColor = Color.Green;
         /// <summary>
-        /// Colored brush for <inheritdoc cref="SGPBase" path="/summary/inner"/>, using in OnPaint
+        /// Colored brush for <inheritdoc cref="GPBase" path="/summary/name"/>, using in OnPaint
         /// </summary>
         protected Brush _fillBrush = Brushes.Green;
 
@@ -91,15 +96,75 @@ namespace SimpleGraphics.GraphicPrimitives
         /// </summary>
         public Color BorderColor { get => _borderColor; set { _borderColor = value; _borderPen = new(value); Parent?.Invalidate(); } }
         /// <summary>
-        /// Border color for <inheritdoc cref="SGPBase" path="/summary/inner"/>, needs for demonstrte color in editor
+        /// Border color for <inheritdoc cref="GPBase" path="/summary/name"/>
         /// </summary>
         private Color _borderColor = Color.Blue;
         /// <summary>
-        /// Colored pen for <inheritdoc cref="SGPBase" path="/summary/inner"/>, using in OnPaint
+        /// Colored pen for <inheritdoc cref="GPBase" path="/summary/name"/>, using in OnPaint
         /// </summary>
         protected Pen _borderPen = Pens.Blue;
 
+        /// <summary>
+        /// <inheritdoc cref="_borderHighlightWidth"/>
+        /// </summary>
+        public int BorderHighlightWidth { get => _borderHighlightWidth; set { _borderHighlightWidth = value; _borderPenHighlight.Width = value; Parent?.Invalidate(); } }
+        /// <summary>
+        /// Border highlight width
+        /// </summary>
+        private int _borderHighlightWidth = 4;
+        /// <summary>
+        /// <inheritdoc cref="_borderColorHighlight"/>
+        /// </summary>
+        public Color BorderHighlightColor
+        {
+            get => _borderColorHighlight; 
+            set
+            {
+                _borderColorHighlight = value;
+                _borderPenHighlight = new(value);
+                _borderPenHighlight.Width = _borderHighlightWidth;
+                _borderPenHighlight = SetPenDashStyle(_borderPenHighlight, DashStyle.Dash);
+                _borderSelectedPenHighlight = SetPenDashStyle(_borderPenHighlight, DashStyle.DashDot);
+
+            }
+        }
+        /// <summary>
+        /// Border highlight color for <inheritdoc cref="GPBase" path="/summary/name"/>
+        /// </summary>
+        private Color _borderColorHighlight = Color.Violet;
+        /// <summary>
+        /// Colored pen for highlight <inheritdoc cref="GPBase" path="/summary/name"/>, using in OnPaint
+        /// </summary>
+        protected Pen _borderPenHighlight = Pens.Violet;
+
+        /// <summary>
+        /// Colored pen for highlight selected <inheritdoc cref="SGPBase" path="/summary/inner"/>, using in OnPaint
+        /// </summary>
+        protected Pen _borderSelectedPenHighlight = Pens.White;
+
         #endregion Colors
+
+        #region Mode
+
+        /// <summary>
+        /// Types <inheritdoc cref="_mode"/>
+        /// </summary>
+        public enum  ModeType
+        {
+            None,
+            Active,
+            Selected,
+        }
+        /// <summary>
+        /// work mode of <inheritdoc cref="GPBase" path="/summary/name"/>
+        /// </summary>
+        private ModeType _mode = ModeType.None;
+        /// <summary>
+        /// Get <inheritdoc cref="_mode"/>
+        /// </summary>
+        public ModeType Mode { get => _mode; }
+
+        #endregion Mode
 
         /// <summary>
         /// Flag the class already disposed
@@ -126,13 +191,14 @@ namespace SimpleGraphics.GraphicPrimitives
 
             FillColor = Color.Green;
             BorderColor = Color.Blue;
-            _borderPenCurrent = _borderPen;
+            BorderHighlightColor = Color.IndianRed;
+            SetMode(ModeType.None);
 
             OnSizeChanged();
-            ContainerPaintGraphic();
 
             SuspendPaint = false;
 
+            PaintGraphic();
             Parent.Invalidate();
         }
 
@@ -142,7 +208,16 @@ namespace SimpleGraphics.GraphicPrimitives
         /// <summary>
         /// Repaint the graphic primitive
         /// </summary>
-        public abstract void ContainerPaintGraphic();
+        public void PaintGraphic()
+        {
+            PaintGraphicInternal(ref _graphicContainer, Color.Transparent);
+            PaintGraphicInternal(ref _graphicContainer4IsPointInside, Parent.BackColor);
+        }
+
+        /// <summary>
+        /// Repaint the graphic primitive internal
+        /// </summary>
+        protected abstract void PaintGraphicInternal(ref Bitmap container, Color colorClean);
 
         /// <summary>
         /// Event nandler for <see cref="Parent"/>, when parent <inheritdoc cref="Control.OnPaint" path="/summary"/>
@@ -160,10 +235,16 @@ namespace SimpleGraphics.GraphicPrimitives
         /// <param name="parent"></param>
         private void ReCreateGraphicContainer(Control parent)
         {
-            if (parent == null) return;
-            _graphicContainer?.Dispose();
-            _graphicContainer = new Bitmap(parent.Width, parent.Height, PixelFormat.Format32bppPArgb);
-            //_graphicContainer = new Bitmap(parent.Width, parent.Height, PixelFormat.Format32bppArgb);
+            ReCreateGraphicContainerInternal(ref _graphicContainer, parent);
+            ReCreateGraphicContainerInternal(ref _graphicContainer4IsPointInside, parent);
+
+            void ReCreateGraphicContainerInternal(ref Bitmap container, Control parent)
+            {
+                if (parent == null) return;
+                container?.Dispose();
+                //container = new Bitmap(parent.Width, parent.Height, PixelFormat.Format32bppArgb);
+                container = new Bitmap(parent.Width, parent.Height, PixelFormat.Format64bppPArgb);
+            }
         }
 
         /// <summary>
@@ -174,8 +255,8 @@ namespace SimpleGraphics.GraphicPrimitives
         private void OnParentResize(object? sender, EventArgs e)
         {
             ReCreateGraphicContainer(Parent);
-            ContainerPaintGraphic();
-            Parent.Invalidate();
+            if (!SuspendPaint) { PaintGraphic(); }
+            if (!SuspendPaint) { Parent.Invalidate(); }
         }
 
         /// <summary>
@@ -210,20 +291,49 @@ namespace SimpleGraphics.GraphicPrimitives
         /// </summary>
         protected virtual void OnSizeChanged() { }
 
-
         /// <summary>
-        /// Are point inside primitive
+        /// Did the point inside this primitive
         /// </summary>
         /// <param name="point">testing point</param>
         /// <returns><typeparamref name="true"/> if inside of this <inheritdoc cref="GPBase" path="/summary/name"/></returns>
         public bool IsPointInside(Point point)
         {
-            if (point.X<0|| point.X>Size.Width|| point.Y< 0 || point.Y > Size.Height)
+            if (point.X<0|| point.X> Size.Width || point.Y< 0 || point.Y > Size.Height)
             {
                 return false;
             }
-            
-            bool res = _graphicContainer.GetPixel(point.X, point.Y).ToArgb() != Parent.BackColor.ToArgb();
+
+            bool res = _graphicContainer4IsPointInside.GetPixel(point.X, point.Y).ToArgb() != Parent.BackColor.ToArgb();
+            return res;
+        }
+
+        /// <summary>
+        /// Set <inheritdoc cref="_mode"/>
+        /// </summary>
+        /// <param name="mode"></param>
+        public void SetMode(ModeType mode)
+        {
+            _mode = mode;
+            _borderPenCurrent = _mode switch
+            {
+                ModeType.Active => _borderPenHighlight,
+                ModeType.Selected => _borderSelectedPenHighlight,
+                _ => _borderPen
+            };
+
+            if (!SuspendPaint) { PaintGraphic(); }
+            if (!SuspendPaint) { Parent.Invalidate(); }
+        }
+
+        /// <summary>
+        /// Get higlith when selected <inheritdoc cref="GPBase" path="/summary/name"/>
+        /// </summary>
+        /// <param name="basePen">Base pen</param>
+        /// <returns><see cref="Pen"/> <typeparamref name="basePen"/>  with different dash style </returns>
+        private Pen SetPenDashStyle(Pen basePen, DashStyle dashStyle)
+        {
+            var res = (Pen)basePen.Clone();
+            res.DashStyle = dashStyle;
             return res;
         }
 

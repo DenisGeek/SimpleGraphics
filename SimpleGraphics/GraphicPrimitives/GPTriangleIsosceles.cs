@@ -24,7 +24,7 @@ namespace SimpleGraphics.GraphicPrimitives
         public double ThisVertexAngle { get => _vertexAngle; }
 
         /// <summary>
-        /// Do draw <inheritdoc cref="_vertexAngle"/> during <see cref="ContainerPaintGraphic"/>
+        /// Do draw <inheritdoc cref="_vertexAngle"/> during <see cref="PaintGraphic"/>
         /// </summary>
         public bool DrawVertexAngle { get; set; } = true;
 
@@ -42,10 +42,10 @@ namespace SimpleGraphics.GraphicPrimitives
             _vertexAngle = Math.Round(_vertexAngle, 1);
         }
 
-        public override void ContainerPaintGraphic()
+        protected override void PaintGraphicInternal(ref Bitmap container, Color colorClean)
         {
-            Graphics g = Graphics.FromImage(_graphicContainer);
-            g.Clear(Color.Transparent);
+            Graphics g = Graphics.FromImage(container);
+            g.Clear(colorClean);
 
             // Create points that define polygon.
             Point point1 = Point.Add(Location, new(0, Size.Height));

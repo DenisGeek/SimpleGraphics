@@ -32,7 +32,7 @@ namespace SimpleGraphics.GraphicPrimitives
         public int Side { get => _side; }
 
         /// <summary>
-        /// Do draw <inheritdoc cref="_side"/> during <see cref="ContainerPaintGraphic"/>
+        /// Do draw <inheritdoc cref="_side"/> during <see cref="PaintGraphic"/>
         /// </summary>
         public bool DrawSide { get; set; } = true;
 
@@ -49,10 +49,10 @@ namespace SimpleGraphics.GraphicPrimitives
             _width = _side;
         }
 
-        public override void ContainerPaintGraphic()
+        protected override void PaintGraphicInternal(ref Bitmap container, Color colorClean)
         {
-            Graphics g = Graphics.FromImage(_graphicContainer);
-            g.Clear(Color.Transparent);
+            Graphics g = Graphics.FromImage(container);
+            g.Clear(colorClean);
 
             // Create points that define polygon.
             Point point1 = Point.Add(Location, new(0, _height));

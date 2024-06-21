@@ -13,11 +13,11 @@ namespace SimpleGraphics.GraphicPrimitives
 
         #region Methods 
 
-        public override void ContainerPaintGraphic()
+        protected override void PaintGraphicInternal(ref Bitmap container, Color colorClean)
         {
-            Graphics g = Graphics.FromImage(_graphicContainer);
-            g.Clear(Color.Transparent);
-
+            Graphics g = Graphics.FromImage(container);
+            g.Clear(colorClean);
+            
             // Create a rectangle that represents the size of the control, minus 1 pixel.
             var area = new Rectangle(Location, Size);
 

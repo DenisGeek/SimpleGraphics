@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Drawing.Drawing2D;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
@@ -94,6 +95,11 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
         /// initial mouse position when <inheritdoc cref="_mouseButton"/>
         /// </summary>
         private Point _mousePosition = new(0, 0);
+
+        /// <summary>
+        /// Flag shows was applied any action with this <inheritdoc cref="SGPBase" path="/summary/inner"/> when mouse moved
+        /// </summary>
+        private bool _isMouseMoveAction = false;
 
         #endregion Fields and Properties
 
@@ -198,6 +204,12 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
             base.OnMouseUp(e);
 
             _mouseButton = MouseButtons.None;
+
+            if (_isMouseMoveAction)
+            {
+                RecreateLinkLines();
+                _isMouseMoveAction = false;
+            }
         }
 
         /// <summary>
@@ -218,8 +230,10 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
                 Location = newLocation;
 
                 // Change linkLine location
-                var linkLines = GetAllLineLimks3ThisSGP();
+                var linkLines = GetAllLineLimks4ThisSGP();
                 linkLines.ForEach(x => x.Invalidate());
+
+                _isMouseMoveAction = true;
             }
 
             // Resize simple graphics primitives control
@@ -234,8 +248,10 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
                 Invalidate();
 
                 // Change linkLine location
-                var linkLines = GetAllLineLimks3ThisSGP();
+                var linkLines = GetAllLineLimks4ThisSGP();
                 linkLines.ForEach(x => x.Invalidate());
+
+                _isMouseMoveAction = true;
             }
         }
 
@@ -281,7 +297,7 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
         /// <summary>
         /// <inheritdoc cref="SGControlBox.GetAllLineLimks3ThisSGP"/>
         /// </summary>
-        private List<SGPLinkLine> GetAllLineLimks3ThisSGP()
+        private List<SGPLinkLine> GetAllLineLimks4ThisSGP()
         {
             var parentBox = GetParentBox();
 
@@ -291,6 +307,18 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
             }
 
             return parentBox.GetAllLineLimks3ThisSGP(this);
+        }
+
+        /// <summary>
+        /// <inheritdoc cref="SGControlBox.RecreateLinkLines"/> to this <inheritdoc cref="SGPBase" path="/summary/inner"/>
+        /// </summary>
+        private void RecreateLinkLines()
+        {
+            var parent  = GetParentBox();
+            if (parent == null) { return; };
+
+            var linkLines = GetAllLineLimks4ThisSGP();
+            parent.RecreateLinkLines(linkLines);
         }
 
         #endregion Primitives Link Line

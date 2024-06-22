@@ -10,6 +10,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace SGTestingApp.CustomControls
 {
@@ -74,7 +75,7 @@ namespace SGTestingApp.CustomControls
             //Unlink
             if (e.Control && e.KeyCode == Keys.U)
             {
-                LinkedLinesAddRemoveSelectedSGP(_selectedPrimitives);
+                LinkedLinesRemoveSelectedSGP(_selectedPrimitives);
                 Invalidate(true);
             }
 
@@ -187,7 +188,7 @@ namespace SGTestingApp.CustomControls
         /// Remove all selected SGP in order selection from <see cref="_LinkedLines"/>
         /// </summary>
         /// <param name="selected"></param>
-        private void LinkedLinesAddRemoveSelectedSGP(List<SGPBase> selected)
+        private void LinkedLinesRemoveSelectedSGP(List<SGPBase> selected)
         {
             if (selected.Count <= 1)
             {
@@ -207,6 +208,31 @@ namespace SGTestingApp.CustomControls
         /// <returns>list of all <see cref="SGPLinkLine"/> whrere contains this <inheritdoc cref="SGPBase" path="/summary/inner"/> </returns>
         public List<SGPLinkLine> GetAllLineLimks3ThisSGP(SGPBase item)
             => _LinkedLines.Where(x => x.FirstSGP == item || x.SecondSGP == item).ToList();
+
+        /// <summary>
+        /// Recreate link lines
+        /// </summary>
+        /// <param name="linkLines">linkLines to recreate</param>
+        public void RecreateLinkLines(List<SGPLinkLine> linkLines)
+        {
+            // Get pairs
+            var pairs = linkLines.Select(x => new { x.FirstSGP, x.SecondSGP }).ToList();
+            linkLines.Clear();
+
+            // Remove link lines
+            for (int i = 0; i < pairs.Count; i++)
+            {
+                LinkedLinesRemovePairSGP(pairs[i].FirstSGP!, pairs[i].SecondSGP!);
+            }
+
+            // Add link lines
+            for (int i = 0; i < pairs.Count; i++)
+            {
+                LinkedLinesAddPairSGP(pairs[i].FirstSGP!, pairs[i].SecondSGP!);
+            }
+
+            _LinkedLines.ForEach(x => { x.BringToFront(); x.Invalidate(); });
+        }
 
         #endregion Manage Link Line
 

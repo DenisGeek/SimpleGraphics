@@ -295,7 +295,7 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
             => parentBox != null && parentBox!.IsModePrimitivesLinkSelection;
 
         /// <summary>
-        /// <inheritdoc cref="SGControlBox.GetAllLineLimks3ThisSGP"/>
+        /// <inheritdoc cref="SGControlBox.GetAllLineLimks4ThisSGP"/>
         /// </summary>
         private List<SGPLinkLine> GetAllLineLimks4ThisSGP()
         {
@@ -306,7 +306,7 @@ namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
                 return new List<SGPLinkLine>();
             }
 
-            return parentBox.GetAllLineLimks3ThisSGP(this);
+            return parentBox.GetAllLineLimks4ThisSGP(this);
         }
 
         /// <summary>

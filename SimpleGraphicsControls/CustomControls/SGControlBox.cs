@@ -206,7 +206,7 @@ namespace SGTestingApp.CustomControls
         /// </summary>
         /// <param name="item"></param>
         /// <returns>list of all <see cref="SGPLinkLine"/> whrere contains this <inheritdoc cref="SGPBase" path="/summary/inner"/> </returns>
-        public List<SGPLinkLine> GetAllLineLimks3ThisSGP(SGPBase item)
+        public List<SGPLinkLine> GetAllLineLimks4ThisSGP(SGPBase item)
             => _LinkedLines.Where(x => x.FirstSGP == item || x.SecondSGP == item).ToList();
 
         /// <summary>

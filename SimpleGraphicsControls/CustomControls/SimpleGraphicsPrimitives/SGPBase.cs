@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Drawing.Drawing2D;
-using System.Runtime.CompilerServices;
-using System.Windows.Forms;
 
 namespace SGTestingApp.CustomControls.SimpleGraphicsPrimitives
 {

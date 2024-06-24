@@ -1,16 +1,5 @@
 ﻿using SGTestingApp.CustomControls.SimpleGraphicsPrimitives;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.DirectoryServices.ActiveDirectory;
-using System.Drawing;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace SGTestingApp.CustomControls
 {
@@ -206,7 +195,7 @@ namespace SGTestingApp.CustomControls
         /// </summary>
         /// <param name="item"></param>
         /// <returns>list of all <see cref="SGPLinkLine"/> whrere contains this <inheritdoc cref="SGPBase" path="/summary/inner"/> </returns>
-        public List<SGPLinkLine> GetAllLineLimks3ThisSGP(SGPBase item)
+        public List<SGPLinkLine> GetAllLineLimks4ThisSGP(SGPBase item)
             => _LinkedLines.Where(x => x.FirstSGP == item || x.SecondSGP == item).ToList();
 
         /// <summary>
